@@ -4,6 +4,8 @@ Read the contents of a rust rlib
 
 ## Usage
 
+Known to work with rustc version: 1.24.0-nightly (5a2465e2b 2017-12-06).
+
 ```bash
 $ git clone https://github.com/bjorn3/rust_read_rlib.git && cd rust_read_rlib
 $ cargo +nightly run -- std

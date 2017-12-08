@@ -131,7 +131,7 @@ impl syntax::codemap::FileLoader for MyFileLoader {
         #![feature(compiler_builtins_lib)]
         #![allow(unused_imports)]
         #![no_std] // Replace with `#![no_core]` for reading libcore metadata
-        extern crate {} as __dummy_name;
+        extern crate {};
         fn main() {{}}", self.0))
     }
 }
@@ -253,8 +253,14 @@ fn print_metadata(tcx: TyCtxt, crate_data: &CrateMetadata) {
 
     header!("Exported symbols:");
     if crate_data.proc_macros.is_none() {
-        for def_id in crate_data.get_exported_symbols().into_iter().take(50) {
-            println!("    {}", tcx.absolute_item_path_str(def_id));
+        
+        for def_id in crate_data.get_exported_symbols().into_iter() {
+            println!("    {} || {:?} || {:?} || {:?}", 
+                    tcx.absolute_item_path_str(def_id),
+                    tcx.type_of(def_id), // https://manishearth.github.io/rust-internals-docs/rustc/ty/struct.TyCtxt.html#method.type_of
+                    tcx.fn_sig(def_id), // https://manishearth.github.io/rust-internals-docs/rustc/ty/type.PolyFnSig.html
+                    tcx.describe_def(def_id)
+            );
         }
     } else {
         // FIXME: support it
