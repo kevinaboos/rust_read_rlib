@@ -1,1 +1,8 @@
-cargo run -- -h test_lib --extern test_lib=/home/kevin/Dropbox/Theseus/kernel/test_lib/target/release/libtest_lib.rlib
+#!/bin/bash
+
+## first build the test_lib
+cd test_lib && cargo build
+cd -
+
+## then analyze it 
+cargo run -- test_lib  --extern test_lib=./test_lib/target/debug/libtest_lib.rlib

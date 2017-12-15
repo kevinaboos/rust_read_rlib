@@ -253,6 +253,8 @@ fn print_metadata(tcx: TyCtxt, crate_data: &CrateMetadata) {
 
     header!("Exported symbols:");
     if crate_data.proc_macros.is_none() {
+
+        // KEVIN: explored here a bit so far
         
         for def_id in crate_data.get_exported_symbols().into_iter() {
             println!("    {} || {:?} || {:?} || {:?}", 
